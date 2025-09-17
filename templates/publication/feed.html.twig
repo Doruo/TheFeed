@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+ <html lang="fr">
+     <head>
+         <title>The Feed</title>
+         <meta charset="utf-8">
+         <link rel="stylesheet" type="text/css" href="css/styles.css">
+     </head>
+     <body>
+         <header>
+             <div id="titre" class="center">
+                 <a href="{{ path("feed") }}"><span>The Feed</span></a>
+                 <nav>
+                     <a href="{{ path("feed") }}">Accueil</a>
+                 </nav>
+             </div>
+         </header>
+         <main id="the-feed-main">
+             <div id="feed">
+
+                <!-- Génération de la balise <form>, possédant un id (HTML) "feedy-new" -->
+                {{ form_start(form, {'attr': {'id' : 'monForm'}} ) }}
+                    <fieldset>
+                        <legend>Nouveau feedy</legend>
+                        <div>
+                            <!-- Le textarea généré, avec le placeholder "Qu'avez-vous en tête?" -->
+                            {{ form_widget(form.message, {'id': "message", 'attr' : {"placeholder": "Qu'avez-vous en tête?"}}) }}
+                        </div>
+                        <div>
+                            <!-- Le bouton de validation, possédant l'id "feedy-new-submit" et le label "Feeder!" -->
+                            {{ form_widget(form.publier, {'id': "feedy-new-submit", 'label' : "Feeder"}) }}
+                        </div>
+                    </fieldset>
+                <!-- Génération des balises restantes (token CSRF) -->
+                {{ form_rest(form) }}
+                <!-- Génération de la balise fermante </form> -->
+                {{ form_end(form) }}
+
+                 <!-- Pour chaque publication, afficher (avec une boucle) le code HTML ci-dessous !-->
+                {% for publication in publications %}
+                    <div class="feedy">
+                        <div class="feedy-header">
+                        <a href="">
+                            <img class="avatar"
+                            src="img/utilisateurs/anonyme.jpg"
+                            alt="avatar de l'utilisateur">
+                        </a>
+                        <div class="feedy-info">
+                            <span>Anonyme</span>
+                            <span> - </span>
+                            <!-- Date de la publication sous le format jour/mois/annee -->
+                            <span>{{ publication.message|capitalize }}</span>
+                            <!-- Message de la publication -->
+                            <p>{{ publication.datePublication|date("d-m-Y") }}</p>
+                        </div>
+                     </div>
+                 </div>
+                 {% endfor %}
+                 <!-- Fin de la boucle -->
+             </div>
+         </main>
+     </body>
+ </html>

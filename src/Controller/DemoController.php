@@ -8,11 +8,30 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class DemoController extends AbstractController
 {
-    #[Route('/demo', name: 'app_demo')]
-    public function index(): Response
+    #[Route('/hello', name: 'app_demo')]
+    public function hello(): Response
     {
-        return $this->render('demo/index.html.twig', [
+        return $this->render('demo/hello.html.twig', [
             'controller_name' => 'DemoController',
+        ]);
+    }
+
+    #[Route('/hello/{name}', name: 'get_hello')]
+    public function hello2(string $name): Response
+    {
+        return $this->render('demo/hello2.html.twig', [
+            'controller_name' => 'DemoController',
+            'name' => $name
+        ]);
+    }
+
+    #[Route('/hello/courses', name: 'get_courses')]
+    public function hello3(): Response
+    {
+        $courses = array("patates","fromage","chocolat","frites");
+        return $this->render('demo/hello2.html.twig', [
+            'controller_name' => 'DemoController',
+            'courses' => $courses
         ]);
     }
 }
