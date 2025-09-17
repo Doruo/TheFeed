@@ -67,6 +67,7 @@
 /composer.phar
 composer.json
 composer.lock
+symfony.lock
 
 # Backup entities generated with doctrine:generate:entities command
 **/Entity/*~
