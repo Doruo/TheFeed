@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Repository\PublicationRepository;
-use App\Service\FlashMessageHelper;
 use App\Service\FlashMessageHelperInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,7 +15,7 @@ use DateTime;
 
 final class PublicationController extends AbstractController
 {
-    public function __construct(private readonly FlashMessageHelper $flashMessageHelper)
+    public function __construct(private readonly FlashMessageHelperInterface $flashMessageHelper)
     {
     }
 
