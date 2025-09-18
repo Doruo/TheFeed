@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\PublicationRepository;
 use App\Service\FlashMessageHelper;
 use App\Service\FlashMessageHelperInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,19 +21,9 @@ final class PublicationController extends AbstractController
     }
 
     #[Route('/', name: 'feed', methods: ["GET","POST"])]
-    public function createPublication(Request $request, EntityManagerInterface $entityManager, FlashMessageHelperInterface $flashMessageHelper): Response
+    public function feed(Request $request, EntityManagerInterface $entityManager, PublicationRepository $publicationRepository): Response
     {
-        $publication1 = new Publication();
-        $publication1->setMessage("Coucou");
-        $publication1->setDatePublication(new DateTime());
-
-        $publication2 = new Publication();
-        $publication2->setMessage("Salut");
-        $publication2->setDatePublication(new DateTime());
-
-        $publications = array($publication1, $publication2);
-
-        // Formulaire
+        // Création du formulaire
         $publication = new Publication();
         $publication->setDatePublication(new DateTime());
         $form = $this->createForm(PublicationType::class, $publication, [
@@ -40,16 +31,19 @@ final class PublicationController extends AbstractController
             'action' => $this->generateURL('feed'),
         ]);
 
-        //Traitement du formulaire
+        // Traitement du formulaire
         $form->handleRequest($request);
-
         if($form->isSubmitted() && $form->isValid()) {
+            // Ajoute publication à la base de donnée
             $entityManager->persist($publication);
             $entityManager->flush();
 
             return $this->redirectToRoute('feed');
         }
 
+        // Récupère toutes les publications en base de donnée
+        $publications = $publicationRepository->findAll();
+        // Gère les messages d'erreurs du formulaire
         $this->flashMessageHelper->addFormErrorsAsFlash($form);
 
         return $this->render('publication/feed.html.twig', [
