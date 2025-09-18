@@ -4,14 +4,28 @@ namespace App\Service;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class FlashMessageHelper
+readonly class FlashMessageHelper implements FlashMessageHelperInterface
 {
 
-    public function __construct(/* Injection de RequestStack */){}
+    public function __construct(private RequestStack $requestStack){}
 
+    // Traitement erreurs
     public function addFormErrorsAsFlash(FormInterface $form) : void
     {
+        $flashBag = $this->requestStack->getSession()->getFlashBag();
+
         $errors = $form->getErrors(true);
-        //Ajouts des erreurs du formulaire comme messages flash de la catégorie "error".
+        foreach ($errors as $error) {
+            $errorMsg = $error->getMessage();
+            $flashBag->add("error", $errorMsg);
+        }
+
+        $this->addTestAsFlash();
+    }
+
+    public function addTestAsFlash() : void
+    {
+        $flashBag = $this->requestStack->getSession()->getFlashBag();
+        $flashBag->add("success", "test");
     }
 }
