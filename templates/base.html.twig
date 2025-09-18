@@ -1,17 +1,39 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <title>The Feed</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+<header>
+    <div id="titre" class="center">
+        <a href="{{ path("feed") }}"><span>The Feed</span></a>
+        <nav>
+            <a href="{{ path("feed") }}">Accueil</a>
+        </nav>
+    </div>
+</header>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+<!-- FLASH -->
+<div id="flashes-container">
+    <!-- Boucle, pour chaque message du type "success" -->
+    {% for successMsg in app.flashes("success") %}
+        <span class="flashes flashes-success">{{ successMsg }}</span>
+        <!-- Fin boucle -->
+    {% endfor %}
+    <!-- Boucle, pour chaque message du type "error" -->
+    {% for errorMsg in app.flashes("error") %}
+        <span class="flashes flashes-error">{{ errorMsg }}</span>
+    {% endfor %}
+    <!-- Fin boucle -->
+</div>
+
+<main id="the-feed-main">
+{% block page_content %}
+    Contenu du bloc
+{% endblock %}
+</main>
+
+</body>
 </html>
