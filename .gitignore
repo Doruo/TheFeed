@@ -65,7 +65,6 @@
 
 # Composer PHAR
 /composer.phar
-composer.json
 composer.lock
 symfony.lock
 
