@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Service\FlashMessageHelper;
+use App\Service\FlashMessageHelperInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -11,8 +15,12 @@ use DateTime;
 
 final class PublicationController extends AbstractController
 {
-    #[Route('/', name: 'feed')]
-    public function index(): Response
+    public function __construct(private readonly FlashMessageHelper $flashMessageHelper)
+    {
+    }
+
+    #[Route('/', name: 'feed', methods: ["GET","POST"])]
+    public function createPublication(Request $request, EntityManagerInterface $entityManager, FlashMessageHelperInterface $flashMessageHelper): Response
     {
         $publication1 = new Publication();
         $publication1->setMessage("Coucou");
@@ -24,16 +32,25 @@ final class PublicationController extends AbstractController
 
         $publications = array($publication1, $publication2);
 
-        //$publicationRepository->add($publication1);
-
         // Formulaire
-        $form = $this->createForm(PublicationType::class, $publication1, [
-        //On précise la méthode utilisée par le formulaire (GET, POST, ...)
-        'method' => 'POST',
-        //On précise l'URL vers lequel le formulaire sera envoyé.
-        //La méthode generateURL permet de générer une URL à partir du nom d'une route (pas son chemin!) 
-        'action' => $this->generateURL('feed')
+        $publication = new Publication();
+        $publication->setDatePublication(new DateTime());
+        $form = $this->createForm(PublicationType::class, $publication, [
+            'method' => 'POST',
+            'action' => $this->generateURL('feed'),
         ]);
+
+        //Traitement du formulaire
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($publication);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('feed');
+        }
+
+        $this->flashMessageHelper->addFormErrorsAsFlash($form);
 
         return $this->render('publication/feed.html.twig', [
            'publications'=> $publications,
