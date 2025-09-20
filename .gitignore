@@ -73,3 +73,6 @@ symfony.lock
 
 # Embedded web-server pid file
 /.web-server-pid
+
+# user profile pictures (also stored locally by db, so it should not be pushed)
+public/img/utilisateurs/uploads
