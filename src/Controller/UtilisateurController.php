@@ -24,7 +24,7 @@ final class UtilisateurController extends AbstractController
     }
 
     #[Route('/inscription', name: 'inscription', methods: ['GET','POST'])]
-    public function inscription(Request $request, EntityManagerInterface $entityManager, UtilisateurRepository $publicationRepository): Response
+    public function inscription(Request $request, EntityManagerInterface $entityManager): Response
     {
         // Création du formulaire
         $utilisateur = new Utilisateur();
