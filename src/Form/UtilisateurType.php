@@ -22,7 +22,14 @@ class UtilisateurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('login',TextType::class)
+            ->add('login',TextType::class,
+            [
+                "mapped" => false,
+                "constraints" => [
+                    new Length(min: 4,max:200, 
+                    minMessage: 'Il faut au moins 4 caractères!', maxMessage:'Il faut moins de 200 caractères!'),
+                ]
+            ])
             ->add('plainPassword',PasswordType::class, 
             [
                 "mapped" => false,
@@ -38,8 +45,12 @@ class UtilisateurType extends AbstractType
             ->add('adresseEmail',EmailType::class)
             ->add('fichierPhotoProfil', FileType::class,[
                 "mapped"=> false,
+                'required' => false,
+                'attr' => [
+                    'accept' => 'image/png, image/jpeg'
+                ],
                 "constraints" => [
-                    new File(maxSize:"10",maxSizeMessage:"Taille de fichier 10Mo dépassée.",extensions:["jpg","png"],extensionsMessage:"Format de fichier doit etre jpg ou png."),
+                    new File(maxSize:"10M",maxSizeMessage:"Taille de fichier 10Mo dépassée.",extensions:["jpg","png"],extensionsMessage:"Format de fichier doit etre jpg ou png."),
                 ],
             ])
             ->add('inscription',SubmitType::class)

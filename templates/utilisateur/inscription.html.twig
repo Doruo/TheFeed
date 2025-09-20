@@ -29,7 +29,7 @@
                  <!-- Affichage du label "Photo de profil" -->
                  {{ form_label(form.fichierPhotoProfil, "Photo de profil") }}
                  <!-- Affichage de l'input de la photo de profil (required : '', car non obligatoire...) -->
-             {{ form_widget(form.fichierPhotoProfil, {'required' : '', 'attr' : {'accept' : 'image/png, image/jpeg'}}) }}
+             {{ form_widget(form.fichierPhotoProfil) }}
              </div>
              <!-- Affichage du bouton d'envoi, contenant le texte (label) "S'inscrire" -->
              {{ form_widget(form.inscription, {'label':"S'inscrire", 'attr': {'class': 'basic-form-submit'}}) }}
