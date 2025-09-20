@@ -63,6 +63,9 @@ final class UtilisateurController extends AbstractController
     #[Route('/connexion', name: 'connexion', methods: ['GET','POST'])]
     public function connexion(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
-        return $this->render('utilisateur/connexion.html.twig');
+        $lastUsername = $authenticationUtils->getLastUsername();
+        return $this->render('utilisateur/connexion.html.twig', [
+            'lastUsername' => $lastUsername
+        ]);
     }
 }

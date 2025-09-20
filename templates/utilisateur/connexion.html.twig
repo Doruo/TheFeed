@@ -3,19 +3,20 @@
 {% block title %}Connexion{% endblock %}
 
 {% block page_content %}
-<form action="...A compléter..." method="post" class="basic-form center">
+<form action="{{ path('connexion') }}" method="post" class="basic-form center">
          <fieldset>
              <legend>Connexion</legend>
              <div class="access-container">
                  <label for="login">Login</label>
-                 <input id="login" type="text" name="...A compléter..." required/>
+                 <input id="login" type="text" name="_username" value="{{lastUsername}}" required/>
              </div>
              <div class="access-container">
                  <label for="password">Mot de passe</label>
-                 <input id="password" type="password" name="...A compléter..." required/>
+                 <input id="password" type="password" name="_password" required/>
              </div>
              <button type="submit" class="basic-form-submit">Se connecter</button>
          </fieldset>
-         <!-- A compléter : champ caché contenant le jeton CSRF -->
+         <!-- champ caché contenant le jeton CSRF -->
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 </form>
 {% endblock %}
