@@ -2,6 +2,9 @@
 
 {% block page_content %}
     <div id="feed">
+
+        <!-- FORM -->
+
         <!-- Génération de la balise <form>, possédant un id (HTML) "feedy-new" -->
         {{ form_start(form, {'attr': {'id' : 'feedy-new'}} ) }}
         <fieldset>
@@ -20,20 +23,22 @@
         <!-- Génération de la balise fermante </form> -->
         {{ form_end(form) }}
 
+        <!-- PUBLICATIONS -->
+
         <!-- Pour chaque publication, afficher (avec une boucle) le code HTML ci-dessous !-->
         {% for publication in publications %}
             <div class="feedy">
                 <div class="feedy-header">
                     <a href="">
                         <img class="avatar"
-                             src="img/utilisateurs/anonyme.jpg"
-                             alt="avatar de l'utilisateur">
+                            src="img/utilisateurs/anonyme.jpg"
+                            alt="avatar de l'utilisateur">
                     </a>
                     <div class="feedy-info">
                         <span>Anonyme</span>
                         <span> - </span>
                         <!-- Date de la publication sous le format jour/mois/annee -->
-                        <p>{{ publication.datePublication|date("d-m-Y") }}</p>
+                        <p>{{ publication.datePublication|date() }}</p>
                         <!-- Message de la publication -->
                         <span>{{ publication.message|capitalize }}</span>
                     </div>
