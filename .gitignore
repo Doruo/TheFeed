@@ -76,3 +76,8 @@ symfony.lock
 
 # user profile pictures (also stored locally by db, so it should not be pushed)
 public/img/utilisateurs/uploads
+
+# IDEs
+.idea
+/.idea
+.vscode
