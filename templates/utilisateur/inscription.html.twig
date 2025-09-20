@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block page_content %}
+    <div id="feed">
+
+        <!-- FORM -->
+
+        <!-- Génération de la balise <form>, possédant un id (HTML) "feedy-new" -->
+        {{ form_start(form, {'attr': {'id' : 'feedy-new'}} ) }}
+        <fieldset>
+            <legend>Nouveau feedy</legend>
+            <div>
+                <!-- Le textarea généré, avec le placeholder "Qu'avez-vous en tête?" -->
+                {{ form_widget(form.message, {'id': "message", 'attr' : {"placeholder": "Qu'avez-vous en tête?"}}) }}
+            </div>
+            <div>
+                <!-- Le bouton de validation, possédant l'id "feedy-new-submit" et le label "Feeder!" -->
+                {{ form_widget(form.publier, {'id': "feedy-new-submit", 'label' : "Feeder!"}) }}
+            </div>
+        </fieldset>
+        <!-- Génération des balises restantes (token CSRF) -->
+        {{ form_rest(form) }}
+        <!-- Génération de la balise fermante </form> -->
+        {{ form_end(form) }}
+    </div>
+    {% endblock %}
