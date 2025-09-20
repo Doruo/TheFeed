@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 final class UtilisateurController extends AbstractController
 {
@@ -57,5 +58,11 @@ final class UtilisateurController extends AbstractController
         return $this->render('utilisateur/inscription.html.twig', [
             'form' => $form
         ]);
+    }
+
+    #[Route('/connexion', name: 'connexion', methods: ['GET','POST'])]
+    public function connexion(Request $request, AuthenticationUtils $authenticationUtils): Response
+    {
+        return $this->render('utilisateur/connexion.html.twig');
     }
 }

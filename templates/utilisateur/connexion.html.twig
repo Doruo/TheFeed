@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block page_content %}
+<form action="...A compléter..." method="post" class="basic-form center">
+         <fieldset>
+             <legend>Connexion</legend>
+             <div class="access-container">
+                 <label for="login">Login</label>
+                 <input id="login" type="text" name="...A compléter..." required/>
+             </div>
+             <div class="access-container">
+                 <label for="password">Mot de passe</label>
+                 <input id="password" type="password" name="...A compléter..." required/>
+             </div>
+             <button type="submit" class="basic-form-submit">Se connecter</button>
+         </fieldset>
+         <!-- A compléter : champ caché contenant le jeton CSRF -->
+</form>
+{% endblock %}
