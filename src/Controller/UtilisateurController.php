@@ -23,10 +23,9 @@ final class UtilisateurController extends AbstractController
     {
         // Création du formulaire
         $utilisateur = new Utilisateur();
-        
         $form = $this->createForm(UtilisateurType::class, $utilisateur, [
             'method' => 'POST',
-            'action' => $this->generateURL('feed'),
+            'action' => $this->generateURL('inscription'),
         ]);
 
         // Traitement du formulaire
@@ -44,6 +43,7 @@ final class UtilisateurController extends AbstractController
         $this->flashMessageHelper->addFormErrorsAsFlash($form);
 
         return $this->render('utilisateur/inscription.html.twig', [
+            'form' => $form
         ]);
     }
 }

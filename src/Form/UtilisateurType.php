@@ -23,7 +23,6 @@ class UtilisateurType extends AbstractType
     {
         $builder
             ->add('login',TextType::class)
-            ->add('adresseEmail',EmailType::class)
             ->add('plainPassword',PasswordType::class, 
             [
                 "mapped" => false,
@@ -36,10 +35,11 @@ class UtilisateurType extends AbstractType
 
                 ]
             ])
+            ->add('adresseEmail',EmailType::class)
             ->add('fichierPhotoProfil', FileType::class,[
                 "mapped"=> false,
                 "constraints" => [
-                    new File(maxSize:"10Mo",maxSizeMessage:"Taille de fichier 10Mo dépassée.",extensions:["jpg","png"],extensionsMessage:"Format de fichier doit etre jpg ou png."),
+                    new File(maxSize:"10",maxSizeMessage:"Taille de fichier 10Mo dépassée.",extensions:["jpg","png"],extensionsMessage:"Format de fichier doit etre jpg ou png."),
                 ],
             ])
             ->add('inscription',SubmitType::class)
