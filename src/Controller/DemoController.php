@@ -11,16 +11,13 @@ final class DemoController extends AbstractController
     #[Route('/hello', name: 'app_demo', methods: ["GET"])]
     public function hello(): Response
     {
-        return $this->render('demo/hello.html.twig', [
-            'controller_name' => 'DemoController',
-        ]);
+        return $this->render('demo/hello.html.twig');
     }
 
     #[Route('/hello/{name}', name: 'get_hello', methods: ["GET"])]
     public function hello2(string $name): Response
     {
         return $this->render('demo/hello2.html.twig', [
-            'controller_name' => 'DemoController',
             'name' => $name
         ]);
     }
@@ -30,7 +27,6 @@ final class DemoController extends AbstractController
     {
         $courses = array("patates","fromage","chocolat","frites");
         return $this->render('demo/hello2.html.twig', [
-            'controller_name' => 'DemoController',
             'courses' => $courses
         ]);
     }
