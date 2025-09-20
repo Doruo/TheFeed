@@ -18,7 +18,7 @@ class Publication
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotNull]
     #[Assert\NotBlank]
-    #[Assert\Length(min: 4,max:200, minMessage: 'Il faut au moins 2 caractères!', maxMessage:'Il faut moins de 200 caractères!')]
+    #[Assert\Length(min: 4,max:200, minMessage: 'Il faut au moins 4 caractères!', maxMessage:'Il faut moins de 200 caractères!')]
     private ?string $message = null;
 
     #[ORM\Column]
