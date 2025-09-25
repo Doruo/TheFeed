@@ -6,7 +6,6 @@ use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
 use App\Service\FlashMessageHelperInterface;
 use App\Service\UtilisateurManagerInterface;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,9 +64,12 @@ final class UtilisateurController extends AbstractController
     }
 
     #[Route('/utilisateurs/{login}/publications', name: 'pagePerso', methods: ['GET'])]
-    public function pagePerso(string $login): Response
+    public function pagePerso(): Response
     {
-        if ($login === '') {
+        // Utilisateur $utiliateur
+        $utilisateur = $this->getUser();
+
+        if ($utilisateur->getLogin() === null) {
             $this->addFlash("error","Utilisateur inexistant");
             return $this->redirectToRoute("feed");
         }
