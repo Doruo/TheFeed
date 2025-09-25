@@ -12,18 +12,17 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PublicationRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         parent::__construct($registry, Publication::class);
     }
 
-    /*
-        public function add($object )
+    
+    public function add(Publication $object)
     {
-        $entityManager->persist($object);
-        $entityManager->flush();
+        $this->entityManager->persist($object);
+        $this->entityManager->flush();
     }
-    */
 
     public function findAllOrderedByDate() : array {
         return $this->findAll();

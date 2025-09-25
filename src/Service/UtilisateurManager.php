@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Utilisateur;
+use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -17,6 +18,7 @@ class UtilisateurManager implements UtilisateurManagerInterface
         //Injection du service UserPasswordHasherInterface
         private readonly UserPasswordHasherInterface $passwordHasher,
         private readonly EntityManagerInterface $entityManager,
+        private readonly UtilisateurRepository $utilisateurRepository,
     ) {}
 
     /**
@@ -58,5 +60,12 @@ class UtilisateurManager implements UtilisateurManagerInterface
         // Ajoute publication à la base de donnée
         $this->entityManager->persist($utilisateur);
         $this->entityManager->flush();
+    }
+
+    /**
+    * @return Utilisateur[] Returns an array of all Utilisateur objects
+    */
+    public function findAll(): array {
+        return $this->utilisateurRepository->findAll();
     }
 }

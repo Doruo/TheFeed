@@ -19,6 +19,12 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         parent::__construct($registry, Utilisateur::class);
     }
 
+    public function add(Utilisateur $object)
+    {
+        $this->entityManager->persist($object);
+        $this->entityManager->flush();
+    }
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
@@ -33,28 +39,14 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         $this->getEntityManager()->flush();
     }
 
-    //    /**
-    //     * @return Utilisateur[] Returns an array of Utilisateur objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Utilisateur
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    /**
+    * @return Utilisateur[] Returns an array of all Utilisateur objects
+    */
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('u')
+        ->setMaxResults(10)
+        ->getQuery()
+        ->getResult();    
+    }    
 }
