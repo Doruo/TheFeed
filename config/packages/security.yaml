@@ -27,6 +27,10 @@ security:
                 always_use_default_target_path: true
                 enable_csrf: true
 
+            logout:
+                path: /deconnexion
+                target: feed
+
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
