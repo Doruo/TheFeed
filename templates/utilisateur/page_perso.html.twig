@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+ {% block page_title %}Page de {{ login }}{% endblock %}
+
+ {% block page_content %}
+ <main>
+     <div class="center">
+         <p id="titre-page-perso">Page de {{ login }}</p>
+     </div>
+     <div id="feed">
+        <!-- Liste des publications de l'utilisateur -->
+        {{ publications }}
+     </div>
+ </main>
+ {% endblock %}

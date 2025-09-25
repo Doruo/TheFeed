@@ -1,0 +1,17 @@
+<div class="feedy">
+    <div class="feedy-header">
+                    <a href="">
+                        <img class="avatar"
+                            src="img/utilisateurs/anonyme.jpg"
+                            alt="avatar de l'utilisateur">
+                    </a>
+                    <div class="feedy-info">
+                        <span>Anonyme</span>
+                        <span> - </span>
+                        <!-- Date de la publication sous le format jour/mois/annee -->
+                        <p>{{ publication.datePublication|date() }}</p>
+                        <!-- Message de la publication -->
+                        <span>{{ publication.message|capitalize }}</span>
+                    </div>
+    </div>                
+</div>

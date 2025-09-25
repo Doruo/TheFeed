@@ -63,4 +63,18 @@ final class UtilisateurController extends AbstractController
             'lastUsername' => $lastUsername
         ]);
     }
+
+    #[Route('/utilisateurs/{login}/publications', name: 'pagePerso', methods: ['GET'])]
+    public function pagePerso(string $login): Response
+    {
+        if ($login === '') {
+            $this->addFlash("error","Utilisateur inexistant");
+            return $this->redirectToRoute("feed");
+        }
+
+        return $this->render('utilisateur/connexion.html.twig', [
+        'login' => $login,
+        'publication' => []
+        ]);
+    }
 }
