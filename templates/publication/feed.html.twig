@@ -4,7 +4,7 @@
     <div id="feed">
 
         <!-- FORM -->
-
+        {% if is_granted('ROLE_USER') %}
         <!-- Génération de la balise <form>, possédant un id (HTML) "feedy-new" -->
         {{ form_start(form, {'attr': {'id' : 'feedy-new'}} ) }}
         <fieldset>
@@ -22,6 +22,10 @@
         {{ form_rest(form) }}
         <!-- Génération de la balise fermante </form> -->
         {{ form_end(form) }}
+        
+        {% else %}
+        <h3>Vous devez etre connecté pour pourvoir créer un nouveau feed.</h3>
+        {% endif %}
 
         <!-- PUBLICATIONS -->
 

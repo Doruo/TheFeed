@@ -25,20 +25,27 @@ final class PublicationController extends AbstractController
         // Création du formulaire
         $publication = new Publication();
         $publication->setDatePublication(new DateTime());
+        
         $form = $this->createForm(PublicationType::class, $publication, [
             'method' => 'POST',
             'action' => $this->generateURL('feed'),
         ]);
 
-        // Traitement du formulaire
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
-            // Ajoute publication à la base de donnée
-            $entityManager->persist($publication);
-            $entityManager->flush();
+        // Traitement du formulaire de creation d'une publication
+        if($request->isMethod('POST')) {
+            
+            //Si l'utilisateur n'a pas le rôle 'ROLE_USER' l'éxécution s'arrête et une page d'erreur est affichée.
+            $this->denyAccessUnlessGranted('ROLE_USER');
 
-            $this->addFlash("success","Feed crée !");
-            return $this->redirectToRoute('feed');
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()) {
+                // Ajoute publication à la base de donnée
+                $entityManager->persist($publication);
+                $entityManager->flush();
+
+                $this->addFlash("success","Feed crée !");
+                return $this->redirectToRoute('feed');
+            }
         }
 
         // Récupère toutes les publications en base de donnée
