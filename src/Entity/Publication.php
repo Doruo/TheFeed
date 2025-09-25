@@ -24,6 +24,10 @@ class Publication
     #[ORM\Column]
     private ?\DateTime $datePublication = null;
 
+    #[ORM\ManyToOne(inversedBy: 'publications')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Utilisateur $auteur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,6 +53,18 @@ class Publication
     public function setDatePublication(\DateTime $datePublication): static
     {
         $this->datePublication = $datePublication;
+
+        return $this;
+    }
+
+    public function getAuteur(): ?Utilisateur
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?Utilisateur $auteur): static
+    {
+        $this->auteur = $auteur;
 
         return $this;
     }

@@ -4,9 +4,9 @@ namespace App\EventListener;
 
 use App\Service\FlashMessageHelperInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
- use Symfony\Component\Security\Http\Event\LoginFailureEvent;
- use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
- use Symfony\Component\Security\Http\Event\LogoutEvent;
+use Symfony\Component\Security\Http\Event\LoginFailureEvent;
+use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
+use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 class AuthentificationEventListener {
     public function __construct(
