@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
-use App\Repository\UtilisateurRepository;
 use App\Service\FlashMessageHelperInterface;
 use App\Service\UtilisateurManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,7 +23,7 @@ final class UtilisateurController extends AbstractController
     }
 
     #[Route('/inscription', name: 'inscription', methods: ['GET','POST'])]
-    public function inscription(Request $request, EntityManagerInterface $entityManager): Response
+    public function inscription(Request $request): Response
     {
         // Création du formulaire
         $utilisateur = new Utilisateur();
@@ -44,10 +43,6 @@ final class UtilisateurController extends AbstractController
                 $form["fichierPhotoProfil"]->getData(),
             );
 
-            // Ajoute publication à la base de donnée
-            $entityManager->persist($utilisateur);
-            $entityManager->flush();
-
             $this->addFlash("success","Inscription réussie !");
             return $this->redirectToRoute('feed');
         }
@@ -61,7 +56,7 @@ final class UtilisateurController extends AbstractController
     }
 
     #[Route('/connexion', name: 'connexion', methods: ['GET','POST'])]
-    public function connexion(Request $request, AuthenticationUtils $authenticationUtils): Response
+    public function connexion(AuthenticationUtils $authenticationUtils): Response
     {
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('utilisateur/connexion.html.twig', [

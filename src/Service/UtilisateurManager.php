@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Utilisateur;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -14,7 +15,8 @@ class UtilisateurManager implements UtilisateurManagerInterface
         //Injection du paramètre dossier_photo_profil
         #[Autowire('%dossier_photo_profil%')] private string $photo_path,
         //Injection du service UserPasswordHasherInterface
-        private UserPasswordHasherInterface $passwordHasher,
+        private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly EntityManagerInterface $entityManager,
     ) {}
 
     /**
@@ -52,5 +54,9 @@ class UtilisateurManager implements UtilisateurManagerInterface
         $this->chiffrerMotDePasse($utilisateur, $plainPassword);
         //On sauvegarde (et on déplace) l'image de profil
         $this->sauvegarderPhotoProfil($utilisateur, $fichierPhotoProfil);
+    
+        // Ajoute publication à la base de donnée
+        $this->entityManager->persist($utilisateur);
+        $this->entityManager->flush();
     }
 }
