@@ -20,4 +20,11 @@ readonly class FlashMessageHelper implements FlashMessageHelperInterface
             $flashBag->add("error", $errorMsg);
         }
     }
+
+    public function addFlash(string $type, string $message) : void
+    {
+        $flashBag = $this->requestStack->getSession()->getFlashBag();
+        $flashBag->add($type, $message);
+
+    }
 }
